@@ -79,6 +79,7 @@ a {
 }
 .layout-content {
   padding: 40px 40px 0;
+  text-align: center;
 }
 .layout-footer {
   position: absolute;
@@ -89,4 +90,11 @@ a {
   font-size: 12px;
   text-align: center;
   color: #7E899B;
+}
+
+section {
+  margin-bottom: 100px;
+}
+section h2 {
+  margin-bottom: 40px;
 }

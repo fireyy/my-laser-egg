@@ -10,6 +10,11 @@ const defaults = {
   // target element or selector to contain the svg
   target: '#chart',
 
+  keys: {
+    x: 'time',
+    y: 'value'
+  },
+
   // width of chart
   width: 550,
 
@@ -77,7 +82,7 @@ export default class LineChart {
    */
 
   init () {
-    const { target, width, height, margin, axisPadding, interpolate } = this
+    const { target, width, height, margin, axisPadding, interpolate, keys } = this
     const { tickSize, xTicks, yTicks } = this
     const [w, h] = this.dimensions()
 
@@ -116,8 +121,8 @@ export default class LineChart {
       .call(this.yAxis)
 
     this.line = d3.line()
-      .x(d => this.x(d.time))
-      .y(d => this.y(d.value))
+      .x(d => this.x(d[keys.x]))
+      .y(d => this.y(d[keys.y]))
       .curve(d3[interpolate])
 
     this.chart.append('path')
@@ -129,10 +134,10 @@ export default class LineChart {
    */
 
   renderAxis (data, options) {
-    const { chart, x, y, xAxis, yAxis, nice } = this
+    const { chart, x, y, xAxis, yAxis, nice, keys } = this
 
-    const xd = x.domain(d3.extent(data, d => d.time))
-    const yd = y.domain(d3.extent(data, d => d.value))
+    const xd = x.domain(d3.extent(data, d => d[keys.x]))
+    const yd = y.domain(d3.extent(data, d => d[keys.y]))
 
     if (nice) {
       xd.nice()
@@ -152,7 +157,7 @@ export default class LineChart {
    */
 
   renderCols (data) {
-    const { chart, x } = this
+    const { chart, x, keys } = this
     const [h] = this.dimensions()
 
     const column = chart.selectAll('.column')
@@ -165,7 +170,7 @@ export default class LineChart {
     // update
     column.attr('width', 1)
       .attr('height', d => h)
-      .attr('x', d => x(d.time))
+      .attr('x', d => x(d[keys.x]))
       .attr('y', 0)
 
     // exit

@@ -155,7 +155,7 @@ export default class BarChart {
 
     this.xAxis = d3.axisBottom()
       .scale(this.x)
-      .ticks(5)
+      .ticks(12)
       .tickPadding(8)
       .tickSize(tickSize)
 
