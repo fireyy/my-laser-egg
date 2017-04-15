@@ -4,15 +4,30 @@ import './assets/tips.css'
 import BarChart from './components/BarChart'
 import LineChart from './components/LineChart'
 import { getTopDetail, getTopByTimeId, getTopHistory } from '@/api'
-import { nowTime, am0Time, formatTime, formatDate } from '@/utils'
+import { nowTime, am0Time, formatTime, formatDate, getAQI } from '@/utils'
 
 var store = {}
 
 const now = () => {
   getTopDetail(store.id).then(res => {
+    let AQI = getAQI(res.pm2_5);
+
     document.querySelector('#now').innerHTML = `
       <h2>Now</h2>
-      <h3>${res.pm2_5}</h3>
+      <ul class="inline">
+        <li>
+          <em>AQI</em>
+          <span>${AQI}</span>
+        </li>
+        <li>
+          <em>PM<sub>2.5</sub></em>
+          <span>${res.pm2_5}</span>
+        </li>
+        <li>
+          <em>PM<sub>10</sub></em>
+          <span>${res.pm10}</span>
+        </li>
+      </ul>
     `;
   })
 }
