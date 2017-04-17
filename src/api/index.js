@@ -31,7 +31,6 @@ export const getTopDetail = (id) => {
   .then(checkStatus)
   .then(parseJSON)
   .then(function(data) {
-    console.log('request succeeded with JSON response', data)
     return data
   }).catch(function(error) {
     console.log('request failed', error)
