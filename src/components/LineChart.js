@@ -34,9 +34,9 @@ export default class LineChart extends HTMLElement {
   static get observedAttributes() { return ['value']; }
 
   attributeChangedCallback(name, oldValue, newValue, namespaceURI) {
-      if (name === 'value') {
-        this.chart.render(JSON.parse(newValue))
-      }
+    if (name === 'value') {
+      this.chart.render(JSON.parse(newValue))
+    }
   }
 }
 
