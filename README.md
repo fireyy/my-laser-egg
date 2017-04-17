@@ -1,5 +1,9 @@
 # my-laser-egg (WIP)
 
+<p align="center">
+  <img src="screen.png" width="700px">
+</p>
+
 > Web Dashboard for [Origins Laser Egg](http://originstech.com/products/laser-egg/) 镭豆智能空气质量检测仪
 
 ## First

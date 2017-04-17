@@ -16,8 +16,6 @@ export default class DotChart extends HTMLElement {
       <svg class="chart dot-chart"></svg>
     `;
 
-    this.data = JSON.parse(this.getAttribute('value'));
-
     this.chart = new Chart({
       target: this._root.querySelector('.dot-chart'),
       keys: {
@@ -25,11 +23,15 @@ export default class DotChart extends HTMLElement {
         y: 'pm25'
       }
     })
-
-    this.chart.render(this.data)
   }
 
   static get observedAttributes() { return ['value']; }
+
+  attributeChangedCallback(name, oldValue, newValue, namespaceURI) {
+      if (name === 'value') {
+        this.chart.render(JSON.parse(newValue))
+      }
+  }
 }
 
 customElements.define('dot-chart', DotChart);

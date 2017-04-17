@@ -19,8 +19,6 @@ export default class BarChart extends HTMLElement {
       <svg class="chart bar-chart"></svg>
     `;
 
-    this.data = JSON.parse(this.getAttribute('value'));
-
     const tip = new Tip({
       format: d => d3.format(',')(d.pm25)
     })
@@ -34,18 +32,22 @@ export default class BarChart extends HTMLElement {
       width: 800,
       height: 208,
       axisPadding: 5,
-      barPadding: 33,
+      barPadding: 30,
       tickSize: 3,
       mouseover: tip.show.bind(tip),
       mouseout: tip.hide,
       ease: 'easeElastic',
       color: ['RGB(0, 177, 240)', 'rgb(243, 43, 101)']
     })
-
-    this.chart.render(this.data)
   }
 
   static get observedAttributes() { return ['value']; }
+
+  attributeChangedCallback(name, oldValue, newValue, namespaceURI) {
+      if (name === 'value') {
+        this.chart.render(JSON.parse(newValue))
+      }
+  }
 }
 
 customElements.define('bar-chart', BarChart);

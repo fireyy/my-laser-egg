@@ -18,8 +18,6 @@ export default class LineChart extends HTMLElement {
       <svg class="chart line-chart"></svg>
     `;
 
-    this.data = JSON.parse(this.getAttribute('value'));
-
     this.chart = new Chart({
       target: this._root.querySelector('.line-chart'),
       keys: {
@@ -31,11 +29,15 @@ export default class LineChart extends HTMLElement {
       xTicks: 3,
       yTicks: 3
     })
-
-    this.chart.render(this.data)
   }
 
   static get observedAttributes() { return ['value']; }
+
+  attributeChangedCallback(name, oldValue, newValue, namespaceURI) {
+      if (name === 'value') {
+        this.chart.render(JSON.parse(newValue))
+      }
+  }
 }
 
 customElements.define('line-chart', LineChart);
