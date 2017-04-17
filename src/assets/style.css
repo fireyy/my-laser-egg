@@ -23,11 +23,6 @@ a {
   text-decoration: none;
   color: inherit
 }
-h2 {
-  letter-spacing: .2em;
-  font-weight: 500;
-  text-transform: uppercase;
-}
 .layout-header {
   position: absolute;
   top: 0;
@@ -115,8 +110,11 @@ h2 {
 }
 
 section {
-  margin-bottom: 100px;
+  padding: 50px 0;
 }
 section h2 {
-  margin-bottom: 40px;
+  letter-spacing: .2em;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0 0 50px;
 }

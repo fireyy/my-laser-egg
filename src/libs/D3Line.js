@@ -157,8 +157,7 @@ export default class LineChart {
    */
 
   renderCols (data) {
-    const { chart, x, keys } = this
-    const [h] = this.dimensions()
+    const { chart, x, keys, height } = this
 
     const column = chart.selectAll('.column')
       .data(data)
@@ -166,10 +165,8 @@ export default class LineChart {
     // enter
     column.enter().append('rect')
       .attr('class', 'column')
-
-    // update
-    column.attr('width', 1)
-      .attr('height', d => h)
+      .attr('width', 1)
+      .attr('height', height - 50)
       .attr('x', d => x(d[keys.x]))
       .attr('y', 0)
 

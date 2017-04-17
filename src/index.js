@@ -3,6 +3,7 @@ import './assets/style.css'
 import './assets/tips.css'
 import BarChart from './components/BarChart'
 import LineChart from './components/LineChart'
+import DotChart from './components/DotChart'
 import { getTopDetail, getTopByTimeId, getTopHistory } from '@/api'
 import { nowTime, am0Time, formatTime, formatDate, getAQI } from '@/utils'
 
@@ -73,7 +74,7 @@ const recent = () => {
 
 document.querySelector('#app').innerHTML = `
   <header class="layout-header">
-    <h1 class="logo">Laser Egg</h1>
+    <h1 class="logo">My Laser Egg</h1>
     <nav>
       <ul>
         <li><a href="#now">Now</a></li>

@@ -1,4 +1,4 @@
-import d3 from 'd3'
+import * as d3 from 'd3'
 
 /**
  * Default config.
@@ -7,6 +7,11 @@ import d3 from 'd3'
 const defaults = {
   // target element or selector to contain the svg
   target: '#chart',
+
+  keys: {
+    x: 'bin',
+    y: 'value'
+  },
 
   // width of chart
   width: 500,
@@ -30,7 +35,7 @@ const defaults = {
   nice: false,
 
   // easing function for transitions
-  ease: 'linear',
+  ease: 'easeLinear',
 
   // dot size range, becomes height range for 'bar' type
   size: [2, 10],
@@ -123,7 +128,7 @@ export default class DotChart {
 
   init() {
     const { target, width, height, margin, axisPadding, tickSize } = this
-    const { color, colorInterpolate, size, axis } = this
+    const { color, colorInterpolate, size, axis, keys } = this
     const [w, h] = this.dimensions()
 
     this.chart = d3.select(target)
@@ -134,18 +139,17 @@ export default class DotChart {
         .on('mouseover', _ => this.onMouseOver())
         .on('mouseleave', _ => this.onMouseLeave())
 
-    this.x = d3.time.scale()
+    this.x = d3.scaleTime()
       .range([0, w])
 
-    this.z = d3.scale.linear()
+    this.z = d3.scaleLinear()
       .range(size)
 
-    this.color = d3.scale.linear()
+    this.color = d3.scaleLinear()
       .range(color)
       .interpolate(colorInterpolate)
 
-    this.xAxis = d3.svg.axis()
-      .orient('bottom')
+    this.xAxis = d3.axisBottom()
       .scale(this.x)
       .ticks(5)
       .tickPadding(8)
@@ -158,7 +162,7 @@ export default class DotChart {
         .call(this.xAxis)
     }
 
-    this.xBisect = d3.bisector(d => d.bin).left
+    this.xBisect = d3.bisector(d => d[keys.x]).left
   }
 
   /**
@@ -166,16 +170,16 @@ export default class DotChart {
    */
 
   renderAxis(data, options) {
-    const { chart, x, xAxis, nice, ease } = this
+    const { chart, x, xAxis, nice, ease, keys } = this
 
-    const xd = x.domain(d3.extent(data, d => d.bin))
+    const xd = x.domain(d3.extent(data, d => d[keys.x]))
 
     if (nice) {
       xd.nice()
     }
 
     const c = options.animate
-      ? chart.transition().ease(ease)
+      ? chart.transition().ease(d3[ease])
       : chart
 
     c.select('.x.axis').call(xAxis)
@@ -186,13 +190,13 @@ export default class DotChart {
    */
 
   renderDots(data) {
-    const { chart, x, z, ease, size, color, type, barPadding } = this
+    const { chart, x, z, ease, size, color, type, barPadding, keys } = this
     const [w, h] = this.dimensions()
 
     const width = w / data.length
 
     // domains
-    const zMax = d3.max(data, d => d.value)
+    const zMax = d3.max(data, d => d[keys.y])
     z.domain([0, zMax])
     color.domain([0, zMax])
 
@@ -207,27 +211,25 @@ export default class DotChart {
       // enter
       dot.enter().append('rect')
         .attr('class', 'dot')
-        .style('fill', d => color(d.value))
-
-      // update
-      dot.transition().ease(ease)
-        .attr('x', d => x(d.bin) + width / 2)
-        .attr('y', d => h / 2 - z(d.value) / 2)
-        .attr('height', d => z(d.value))
+        .style('fill', d => color(d[keys.y]))
+        .merge(dot)
+        .transition().ease(d3[ease])
+        .attr('x', d => x(d[keys.x]) + width / 2)
+        .attr('y', d => h / 2 - z(d[keys.y]) / 2)
+        .attr('height', d => z(d[keys.y]))
         .attr('width', barWidth)
-        .style('fill', d => color(d.value))
+        .style('fill', d => color(d[keys.y]))
     } else {
       // enter
       dot.enter().append('circle')
         .attr('class', 'dot')
-        .style('fill', d => color(d.value))
-
-      // update
-      dot.transition().ease(ease)
-        .attr('cx', d => x(d.bin) + width / 2)
+        .style('fill', d => color(d[keys.y]))
+        .merge(dot)
+        .transition().ease(d3[ease])
+        .attr('cx', d => x(d[keys.x]) + width / 2)
         .attr('cy', h / 2)
-        .attr('r', d => z(d.value))
-        .style('fill', d => color(d.value))
+        .attr('r', d => z(d[keys.y]))
+        .style('fill', d => color(d[keys.y]))
     }
 
     // exit
@@ -240,9 +242,8 @@ export default class DotChart {
     // enter
     overlay.enter().append('rect')
       .attr('class', 'overlay')
-
-    // update
-    overlay.attr('x', d => x(d.bin))
+      .merge(overlay)
+      .attr('x', d => x(d[keys.x]))
       .attr('width', width)
       .attr('height', h)
       .style('fill', 'transparent')

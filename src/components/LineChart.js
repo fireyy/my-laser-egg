@@ -8,7 +8,7 @@ export default class LineChart extends HTMLElement {
     this._root.innerHTML = `
       <style>
         :host {  }
-        .chart .column { fill: RGB(230, 237, 244); }
+        .chart .column { fill: RGBA(255, 255, 255, 0.1); }
         .chart .line { stroke: RGB(243, 42, 100); stroke-width: 3px; fill: none; }
         .chart .axis text { font: 9px sans-serif; fill: rgba(255, 255, 255, 0.5); }
         .chart .axis path,

@@ -155,7 +155,7 @@ export default class BarChart {
 
     this.xAxis = d3.axisBottom()
       .scale(this.x)
-      .ticks(12)
+      .ticks(5)
       .tickPadding(8)
       .tickSize(tickSize)
 
@@ -260,9 +260,8 @@ export default class BarChart {
     // enter
     overlay.enter().append('rect')
       .attr('class', 'overlay')
-
-    // update
-    overlay.attr('x', d => x(d[keys.x]))
+      .merge(overlay)
+      .attr('x', d => x(d[keys.x]))
       .attr('width', width)
       .attr('height', h)
       .style('fill', 'transparent')
