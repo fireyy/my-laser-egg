@@ -32,7 +32,7 @@ export default class BarChart extends HTMLElement {
       width: 800,
       height: 208,
       axisPadding: 5,
-      barPadding: 30,
+      barPadding: 15,
       tickSize: 3,
       mouseover: tip.show.bind(tip),
       mouseout: tip.hide,
