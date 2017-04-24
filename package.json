@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
-    "start": "node server.js"
+    "start": "node ."
   },
   "license": "WTFPL",
   "dependencies": {
@@ -45,7 +45,10 @@
   },
   "engines": {
     "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "npm": ">= 2.0.0"
+  },
+  "now": {
+    "alias": "my-laser-egg"
   },
   "browserslist": [
     "> 1%",

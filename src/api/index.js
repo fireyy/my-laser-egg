@@ -14,47 +14,40 @@ function parseJSON(response) {
   return response.json()
 }
 
+const request = (url) => {
+  return fetch(url)
+  .then(checkStatus)
+  .then(parseJSON)
+  .catch(function(error) {
+    console.log('request failed', error)
+  })
+}
+
 const Path = '/topdata'
 
 export const getTopByTimeId = () => {
-  return fetch(`${Path}/getTopByTimeId?timeId=${timeId}`)
-  .then(checkStatus)
-  .then(parseJSON)
+  return request(`${Path}/getTopByTimeId?timeId=${timeId}`)
   .then(function(data) {
     return data.data
-  }).catch(function(error) {
-    console.log('request failed', error)
   })
 }
 export const getTopDetail = (id) => {
-  return fetch(`${Path}/getTopDetail?id=${id}`)
-  .then(checkStatus)
-  .then(parseJSON)
+  return request(`${Path}/getTopDetail?id=${id}`)
   .then(function(data) {
     return data
-  }).catch(function(error) {
-    console.log('request failed', error)
   })
 }
 export const getTopHistory = ({mac, type, time}) => {
-  return fetch(`${Path}/getTopHistory?mac=${mac}&type=${type}&time=${time}`)
-  .then(checkStatus)
-  .then(parseJSON)
+  return request(`${Path}/getTopHistory?mac=${mac}&type=${type}&time=${time}`)
   .then(function(data) {
     return data.data
-  }).catch(function(error) {
-    console.log('request failed', error)
   })
 }
 // city=上海 time=2017-03-30 10:19:07 type=hour
 export const getStationHistory = () => {
-  return fetch('/station/getStationHistory')
-  .then(checkStatus)
-  .then(parseJSON)
+  return request('/station/getStationHistory')
   .then(function(data) {
     console.log('request succeeded with JSON response', data)
-  }).catch(function(error) {
-    console.log('request failed', error)
   })
 }
 
