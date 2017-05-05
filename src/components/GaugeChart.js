@@ -7,9 +7,10 @@ export default class GaugeChart extends HTMLElement {
     this._root.innerHTML = `
       <style>
         :host {  }
+        .chart .circle { fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .chart .background { fill: none; stroke: rgba(255, 255, 255, .2); }
         .chart .foreground { fill: none; stroke: rgb(243, 42, 100); }
-        .chart .label { fill: RGB(243, 42, 100); font: 18px sans-serif; text-anchor: middle; alignment-baseline: middle; }
+        .chart .label { fill: RGB(243, 42, 100); font: 22px sans-serif; text-anchor: middle; alignment-baseline: middle; }
       </style>
       <svg class="chart gauge-chart"></svg>
     `;

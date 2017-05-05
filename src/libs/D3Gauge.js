@@ -85,17 +85,12 @@ export default class GaugeChart {
       .datum({ endAngle: Math.PI / 1.5  })
       .attr('class', 'circle background')
       .attr('stroke-width', thickness)
-      // .attr("stroke-dasharray", "10, 30")
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
       .attr('d', this.arc)
 
     this.fg = chart.append('path')
       .datum({ endAngle: - Math.PI / 1.5 })
       .attr('class', 'circle foreground')
       .attr('stroke-width', thickness)
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
       .attr('d', this.arc)
 
     this.label = chart.append('text')
@@ -112,8 +107,6 @@ export default class GaugeChart {
     const { format, ease, duration } = this
 
     const value = - Math.PI / 1.5 + Math.PI / 1.5 * data.value * 2
-
-    console.log(value)
 
     this.fg.transition()
       .duration(duration)
