@@ -3,6 +3,7 @@ import './assets/style.css'
 import './assets/tips.css'
 import BarChart from './components/BarChart'
 import LineChart from './components/LineChart'
+import GaugeChart from './components/GaugeChart'
 import { getTopDetail, getTopByTimeId, getTopHistory } from '@/api'
 import { nowTime, am0Time, formatTime, formatDate, getAQI } from '@/utils'
 
@@ -14,6 +15,7 @@ const now = () => {
 
     document.querySelector('#now').innerHTML = `
       <h2>Now</h2>
+      <gauge-chart value="0.4"></gauge-chart>
       <ul class="inline">
         <li>
           <em>AQI</em>

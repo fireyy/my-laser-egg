@@ -7,8 +7,8 @@ export default class GaugeChart extends HTMLElement {
     this._root.innerHTML = `
       <style>
         :host {  }
-        .chart .background { fill: RGB(230, 237, 244); }
-        .chart .foreground { fill: RGB(243, 42, 100); }
+        .chart .background { fill: none; stroke: rgba(255, 255, 255, .2); }
+        .chart .foreground { fill: none; stroke: rgb(243, 42, 100); }
         .chart .label { fill: RGB(243, 42, 100); font: 18px sans-serif; text-anchor: middle; alignment-baseline: middle; }
       </style>
       <svg class="chart gauge-chart"></svg>
@@ -26,6 +26,8 @@ export default class GaugeChart extends HTMLElement {
           return '差'
         }
       },
+      radius: 80,
+      thickness: 10,
       ease: 'easeElastic',
       duration: 600
     })

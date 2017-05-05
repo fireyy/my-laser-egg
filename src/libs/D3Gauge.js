@@ -77,18 +77,25 @@ export default class GaugeChart {
         .attr('transform', `translate(${radius}, ${radius})`)
 
     this.arc = d3.arc()
-      .innerRadius(radius - thickness)
-      .outerRadius(radius)
+      .innerRadius(radius - 20)
+      .outerRadius(radius - 20)
       .startAngle(- Math.PI / 1.5)
 
     this.bg = chart.append('path')
       .datum({ endAngle: Math.PI / 1.5  })
       .attr('class', 'circle background')
+      .attr('stroke-width', thickness)
+      // .attr("stroke-dasharray", "10, 30")
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
       .attr('d', this.arc)
 
     this.fg = chart.append('path')
       .datum({ endAngle: - Math.PI / 1.5 })
       .attr('class', 'circle foreground')
+      .attr('stroke-width', thickness)
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
       .attr('d', this.arc)
 
     this.label = chart.append('text')
