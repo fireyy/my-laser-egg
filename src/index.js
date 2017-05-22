@@ -15,7 +15,7 @@ const now = () => {
 
     document.querySelector('#now').innerHTML = `
       <h2>Now</h2>
-      <gauge-chart value="0.4"></gauge-chart>
+      <gauge-chart value="${AQI/555}"></gauge-chart>
       <ul class="inline">
         <li>
           <em>AQI</em>
