@@ -14,16 +14,21 @@ Browser support [Custom Elements v1](https://html.spec.whatwg.org/multipage/scri
 --- | --- | --- | --- | --- |
 Not ✘ | Latest ✔ | Not ✘ | Latest ✔ | Latest ✔ |
 
-## First
+## Get the right ID
 
-You must configure your Laser Egg's timeId:
+Each Laser Egg has a unique UDID. But the API uses another ID called *Laser Egg ID*. You will call manufacturer’s API to get the `laser_egg_id`.
+
+1. Go to Kaiterra app and click *details* icon, a \> in a circle.
+2. Click *configure* icon, a gear in a circle.
+3. In the *Device Information* section, you will find a blue *copy*. Click on this to copy the UDID string.
+4. configure your Laser Egg's UDID:
 
 ```bash
 cd src
 cp config.sample.js config.js
 ```
 
-repalce `YOUR Laser Egg timeId` with your Laser Egg's timeId.
+repalce `YOUR Laser Egg timeId` with your Laser Egg's UDID.
 
 ## Build Setup
 
