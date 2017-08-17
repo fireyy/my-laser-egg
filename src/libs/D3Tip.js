@@ -4,11 +4,6 @@ import * as d3 from 'd3'
  * Tip element.
  */
 
-const el = document.createElement('div')
-el.id = 'tip'
-el.style.display = 'none'
-document.body.appendChild(el)
-
 const offset = (el) => {
   const tb = el.getBoundingClientRect()
   var docEl = document.documentElement
@@ -49,6 +44,7 @@ export default class Tip {
     const t = d3.event.target
     const tb = t.getBoundingClientRect()
     const o = offset(t)
+    const el = document.querySelector('#tip')
     el.textContent = this.format(d)
     el.style.display = 'block'
     el.style.top = o.top - el.offsetHeight + 'px'
@@ -61,6 +57,6 @@ export default class Tip {
    */
 
   hide () {
-    el.classList.remove('show')
+    document.querySelector('#tip').classList.remove('show')
   }
 }

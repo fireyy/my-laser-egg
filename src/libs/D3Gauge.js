@@ -113,7 +113,6 @@ export default class GaugeChart {
       .ease(d3[ease])
       .call(tween(this.arc), value)
       //
-
     this.label.text(format(data.value))
   }
 

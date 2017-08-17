@@ -39,7 +39,7 @@ const defaults = {
   interpolate: 'basis',
 
   // color range from 'cold' to 'hot'
-  color: ['rgb(0, 180, 240)', 'rgb(243, 42, 100)'],
+  color: ['rgb(0, 180, 240)', '#f32a64'],
 
   // color interpolation function
   colorInterpolate: d3.interpolateHcl,
