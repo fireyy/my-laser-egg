@@ -2,7 +2,7 @@
   <section id="today">
     <h2>{{title}}</h2>
     <h3>{{selected | formatDate}}</h3>
-    <calendar :view="view" :decorate="decorate" :current-views.sync="currentView" :indicator="indicator" :start-monday="true" @select="handleSelect">
+    <calendar :start-monday="true" @select="handleSelect">
     </calendar>
     <line-chart :value="data" v-if="data && data.length > 0"></line-chart>
     <p v-else>No Data</p>
@@ -19,11 +19,6 @@ export default {
   components: { LineChart, Calendar },
 
   data: () => ({
-    view: 'week',
-    decorate: {},
-    currentView: {},
-    indicator: {},
-    startDate: new Date,
     selected: new Date(),
     title: 'Today'
   }),

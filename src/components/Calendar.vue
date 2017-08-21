@@ -26,9 +26,9 @@
         <!-- 日期 -->
         <div class="calendar__days">
           <div class="calendar__day" :key="index" v-for="(day, index) in days"
-              :class="{'calendar__day_now': checkToday(day), 'calendar__day_selected': checkSelected(day), 'calendar__day_othermonth': checkOtherMonth(day), 'calendar__day_decorate': checkDecorate(day)}"
+              :class="{'calendar__day_now': checkToday(day), 'calendar__day_selected': checkSelected(day), 'calendar__day_othermonth': checkOtherMonth(day)}"
               @click="select(day)">
-            <span>{{day.getDate()}}<i class="sub" v-if="checkSub(day)" :style="{color: checkSub(day).color}">{{checkSub(day).content}}</i></span>
+            <span>{{day.getDate()}}</span>
           </div>
         </div>
       </div>
@@ -42,25 +42,6 @@ const I18N = {
 }
 export default {
   props: {
-    currentViews: {
-      type: Object,
-      twoWay: true,
-      'default'() {
-        return {}
-      }
-    },
-    decorate: {
-      type: Object,
-      'default'() {
-        return {}
-      }
-    },
-    sub: {
-      type: Object,
-      'default'() {
-        return {}
-      }
-    },
     i18n: {
       type: String,
       'default': 'zh-cn'
@@ -75,10 +56,6 @@ export default {
       type: Boolean,
       'default': false
     },
-    view: {
-      type: String,
-      'default': 'month'
-    },
     centerHeader: {
       type: Boolean,
       'default': true
@@ -86,19 +63,12 @@ export default {
   },
   data() {
     return {
+      currentView: {},
       startDate: new Date(),
       selected: new Date()
     }
   },
   computed: {
-    currentView: {
-      get() {
-        return this.currentViews
-      },
-      set() {
-        //
-      }
-    },
     shownIndicator: {
       get() {
         let indicator = {}
@@ -123,15 +93,11 @@ export default {
         let startDay
         let leftPadding
         let startDate
-        if (this.view === 'month') {
-          dayslength = 35
-          startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth())
-          startDay = startDate.getDay()
-        } else {
-          dayslength = 7
-          startDate = this.startDate
-          startDay = startDate.getDay()
-        }
+
+        dayslength = 7
+        startDate = this.startDate
+        startDay = startDate.getDay()
+
         if (this.startMonday) {
           leftPadding = startDay ? startDay - 1 : 6
         } else {
@@ -187,30 +153,14 @@ export default {
     checkOtherMonth(day) {
       return day.getMonth() !== this.startDate.getMonth()
     },
-    checkDecorate(day) {
-      let dateFormat = day.getFullYear() + '-' + ('0' + (day.getMonth() + 1)).slice(-2) + '-' + ('0' + (day.getDate())).slice(-2)
-      return !!this.decorate[dateFormat]
-    },
-    checkSub(day) {
-      let dateFormat = day.getFullYear() + '-' + ('0' + (day.getMonth() + 1)).slice(-2) + '-' + ('0' + (day.getDate())).slice(-2)
-      return this.sub[dateFormat]
-    },
     prevView() {
-      if (this.view === 'month') {
-        this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() - 1, this.startDate.getDate())
-      } else {
-        this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate() - 7)
-      }
+      this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate() - 7)
       this.$nextTick(() => {
         this.$emit('prev')
       })
     },
     nextView() {
-      if (this.view === 'month') {
-        this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth() + 1, this.startDate.getDate())
-      } else {
-        this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate() + 7)
-      }
+      this.startDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate() + 7)
       this.$nextTick(() => {
         this.$emit('next')
       })
@@ -241,7 +191,7 @@ export default {
 <style>
 .calendar {
   font-size: 14px;
-  max-width: 800px;
+  max-width: 400px;
   margin: 0 auto 40px;
 }
 .calendar .calendar__header {
@@ -381,20 +331,5 @@ export default {
 .calendar .calendar__days .calendar__day.calendar__day_othermonth span {
   border-radius: 50%;
   color: #ccc;
-}
-.calendar .calendar__days .calendar__day.calendar__day_decorate {
-  position: relative
-}
-.calendar .calendar__days .calendar__day.calendar__day_decorate:after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #eb4f04;
 }
 </style>
