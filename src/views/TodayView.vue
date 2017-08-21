@@ -48,9 +48,10 @@ export default {
   methods: {
     handleSelect (day) {
       this.selected = day
-      var arr = []
-      for (var i = 0; i < 24; i ++) { arr.push({"time": i, "pm25": Math.floor(Math.random() * 50)})  }
-      this.data = arr
+      this.$store.dispatch('GET_TOP_HISTORY', {
+        type: 'hour',
+        time: am0Time(day)
+      })
     }
   }
 }
