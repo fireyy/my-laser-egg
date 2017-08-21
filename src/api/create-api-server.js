@@ -9,7 +9,6 @@ export function createAPI () {
     api = process.__API__
   } else {
     api = process.__API__ = function (child) {
-      console.log('child', child)
       return fetch(`http://api-ios.origins-china.cn:8080${child}`)
     }
 

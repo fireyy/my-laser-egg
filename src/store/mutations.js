@@ -1,8 +1,8 @@
 import { formatTime, formatDate } from '../utils'
 
 export default {
-  SET_LOADING: (state, { data }) => {
-    state.loading = data
+  SET_LOADING: (state, { type }) => {
+    state.loading = type
   },
   SET_LASER_INFO: (state, { data }) => {
     state.id = data.id

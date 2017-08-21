@@ -162,6 +162,7 @@ a {
 
 .inline {
   list-style: none;
+  padding: 0;
 }
 
 .inline li {
@@ -237,5 +238,11 @@ section h2 {
 	border-top-color: rgb(34, 39, 42);
 	border-width: 5px;
 	margin-left: -5px;
+}
+
+@media (max-width: 600px) {
+  .layout-header nav li {
+    display: block;
+  }
 }
 </style>

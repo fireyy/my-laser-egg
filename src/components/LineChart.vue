@@ -2,7 +2,7 @@
   <svg ref="line-chart" class="chart line-chart"></svg>
 </template>
 <script>
-import Chart from '../libs/D3Gauge'
+import Chart from '../libs/D3Line'
 
 export default {
   props: {
@@ -14,14 +14,15 @@ export default {
     }
   },
   mounted () {
+    let width = Math.min(document.documentElement.clientWidth, 800)
     this.chart = new Chart({
       target: this.$refs['line-chart'],
       keys: {
         x: 'time',
         y: 'pm25'
       },
-      width: 800,
-      height: 208,
+      width: width,
+      height: width / 4,
       xTicks: 3,
       yTicks: 3
     })

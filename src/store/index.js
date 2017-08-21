@@ -9,12 +9,12 @@ Vue.use(Vuex)
 export function createStore () {
   return new Vuex.Store({
     state: {
-      loading: true,
       id: null,
       mac: null,
       now: {},
       today: [],
-      recent: []
+      recent: [],
+      loading: true
     },
     actions,
     mutations,
