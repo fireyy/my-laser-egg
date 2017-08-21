@@ -60,7 +60,8 @@
     "npm": ">=4.0"
   },
   "now": {
-    "alias": "my-laser-egg"
+    "alias": "my-laser-egg",
+    "dotenv": true
   },
   "browserslist": [
     "> 1%",
