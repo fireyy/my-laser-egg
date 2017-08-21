@@ -210,10 +210,10 @@ export default class BarChart {
    */
 
   renderBars (data, { animate }) {
-    const { chart, x, y, trans, barPadding, type, color, keys } = this
+    const { chart, x, y, trans, barPadding, type, color, keys, max } = this
     const [w, h] = this.dimensions()
 
-    const width = w / data.length
+    const width = w / Math.max(data.length, max)
     const barWidth = width - barPadding
     if (barWidth < 1) throw new Error('BarChart is too small for the amount of data provided')
 

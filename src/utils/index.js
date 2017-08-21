@@ -17,7 +17,7 @@ export const nowTime = _ => {
 };
 
 export const am0Time = _ => {
-  return new Date(formatTime(0))
+  return new Date(_ || formatTime(0))
     .toLocaleString("zh-CN", {
       hour12: false,
       year: "numeric",

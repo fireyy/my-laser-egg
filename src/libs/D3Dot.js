@@ -47,7 +47,7 @@ const defaults = {
   barPadding: 1,
 
   // color range
-  color: ['rgb(230, 237, 244)', 'rgb(243, 43, 101)'],
+  color: ['#e6edf4', 'rgb(243, 43, 101)'],
 
   // color interpolation
   colorInterpolate: d3.interpolateHcl,
